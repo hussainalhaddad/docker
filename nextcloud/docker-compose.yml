@@ -1,11 +1,6 @@
 services:
   search:
     image: elasticsearch:8.17.2
-    env_file:
-      - .env
-    ports:
-      - 9200:9200
-      - 9300:9300
     restart: always
     volumes:
       - elastic:/usr/share/elasticsearch/data
