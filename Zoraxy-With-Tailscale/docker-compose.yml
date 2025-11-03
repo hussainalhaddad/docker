@@ -1,0 +1,39 @@
+x-common: &common-options
+  restart: always
+  env_file: .env
+  volumes:
+    - /etc/localtime:/etc/localtime
+services:
+  tailscale:
+    <<: *common-options
+    image: tailscale/tailscale:latest
+    container_name: tailscale
+    ports:
+      - 80:80
+      - 443:443
+      - 8000:8000
+    environment:
+      - TS_EXTRA_ARGS=--accept-routes
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_USERSPACE=false
+    volumes:
+      - ts-state:/var/lib/tailscale
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - NET_ADMIN
+  zoraxy:
+    <<: *common-options
+    image: zoraxydocker/zoraxy:latest
+    container_name: zoraxy
+    network_mode: service:tailscale
+    volumes:
+      - zoraxy-config:/opt/zoraxy/config/
+      - zoraxy-plugin:/opt/zoraxy/plugin/
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - tailscale
+volumes:
+  ts-state:
+  zoraxy-config:
+  zoraxy-plugin:
