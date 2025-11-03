@@ -1,8 +1,6 @@
 x-common: &common-options
   restart: always
   env_file: .env
-  volumes:
-    - /etc/localtime:/etc/localtime
 services:
   tailscale:
     <<: *common-options
@@ -18,6 +16,7 @@ services:
       - TS_USERSPACE=false
     volumes:
       - ts-state:/var/lib/tailscale
+      - /etc/localtime:/etc/localtime
     devices:
       - /dev/net/tun:/dev/net/tun
     cap_add:
@@ -31,6 +30,7 @@ services:
       - zoraxy-config:/opt/zoraxy/config/
       - zoraxy-plugin:/opt/zoraxy/plugin/
       - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/localtime:/etc/localtime
     depends_on:
       - tailscale
 volumes:
