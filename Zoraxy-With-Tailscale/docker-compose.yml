@@ -33,6 +33,14 @@ services:
       - /etc/localtime:/etc/localtime
     depends_on:
       - tailscale
+  tinyauth:
+    <<: *common-options
+    image: ghcr.io/steveiliop56/tinyauth:latest
+    container_name: tinyauth
+    volumes:
+      - /etc/localtime:/etc/localtime
+    depends_on:
+      - zoraxy      
 volumes:
   ts-state:
   zoraxy-config:
