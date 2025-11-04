@@ -1,3 +1,17 @@
+# In Zoraxy SSO, configure the forward auth to point to: http://tinyauth:3000/api/auth/traefik
+# and then add a HTTP proxy (e.g. auth.example.com) to point to tinyauth:3000
+
+# To create a user in Tinyuth, run the below command:
+# docker run -i -t --rm ghcr.io/steveiliop56/tinyauth:latest user create --interactive
+# Copy the output to the variable USERS in the .env file
+
+# Also enable TOTP with this command:
+# docker run -i -t --rm ghcr.io/steveiliop56/tinyauth:latest totp generate --interactive
+
+
+# Stream proxy ports must be add the ports section under tailscale service for them to work    
+# You may remove port 8000 once you create a HTTP proxy (e.g. console.example.com) pointing to tailscale:8000
+
 x-common: &common-options
   restart: always
   env_file: .env
