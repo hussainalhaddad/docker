@@ -1,6 +1,7 @@
 x-common: &common-options
   restart: always
   env_file: .env
+  
 services:
   tailscale:
     <<: *common-options
@@ -16,11 +17,12 @@ services:
       - TS_USERSPACE=false
     volumes:
       - ts-state:/var/lib/tailscale
-      - /etc/localtime:/etc/localtime
+      - /etc/localtime:/etc/localtime:ro
     devices:
       - /dev/net/tun:/dev/net/tun
     cap_add:
       - NET_ADMIN
+      
   zoraxy:
     <<: *common-options
     image: zoraxydocker/zoraxy:latest
@@ -30,15 +32,16 @@ services:
       - zoraxy-config:/opt/zoraxy/config/
       - zoraxy-plugin:/opt/zoraxy/plugin/
       - /var/run/docker.sock:/var/run/docker.sock
-      - /etc/localtime:/etc/localtime
+      - /etc/localtime:/etc/localtime:ro
     depends_on:
       - tailscale
+      
   tinyauth:
     <<: *common-options
     image: ghcr.io/steveiliop56/tinyauth:latest
     container_name: tinyauth
     volumes:
-      - /etc/localtime:/etc/localtime
+      - /etc/localtime:/etc/localtime:ro    
     depends_on:
       - zoraxy      
 volumes:
