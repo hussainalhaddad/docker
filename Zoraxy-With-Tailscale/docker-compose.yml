@@ -55,6 +55,7 @@ services:
     image: ghcr.io/steveiliop56/tinyauth:latest
     container_name: tinyauth
     volumes:
+      - tinyauth-data:/data
       - /etc/localtime:/etc/localtime:ro    
     depends_on:
       - zoraxy      
@@ -62,3 +63,4 @@ volumes:
   ts-state:
   zoraxy-config:
   zoraxy-plugin:
+  tinyauth-data:
