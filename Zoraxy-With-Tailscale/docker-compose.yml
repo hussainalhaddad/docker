@@ -48,7 +48,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /etc/localtime:/etc/localtime:ro
     depends_on:
-      - tailscale
+      - tinyauth
       
   tinyauth:
     <<: *common-options
@@ -58,7 +58,7 @@ services:
       - tinyauth-data:/data
       - /etc/localtime:/etc/localtime:ro    
     depends_on:
-      - zoraxy      
+      - tailscale      
 volumes:
   ts-state:
   zoraxy-config:
