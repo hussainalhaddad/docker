@@ -1,3 +1,5 @@
+# You need to have a tailscale machine in your homelab that advertises your network subnet to allow this tailscale container route traffic to your internal resources.
+
 # In Zoraxy SSO, configure the forward auth to point to: http://tinyauth:3000/api/auth/traefik
 # and then add a HTTP proxy (e.g. auth.example.com) to point to tinyauth:3000
 
@@ -7,10 +9,19 @@
 
 # Also enable TOTP with this command:
 # docker run -i -t --rm ghcr.io/steveiliop56/tinyauth:latest totp generate --interactive
-
+# You also need to verify it to take effect
+# docker run -i -t --rm ghcr.io/steveiliop56/tinyauth:latest user verify --interactive
 
 # Stream proxy ports must be add the ports section under tailscale service for them to work    
 # You may remove port 8000 once you create a HTTP proxy (e.g. console.example.com) pointing to tailscale:8000
+
+# If you use Home Assistant, you'll need to add the tailscale container's IP address as a trusted proxy in Home Assistant configuration.yaml
+#
+# http: 
+#   use_x_forwarded_for: true 
+#   trusted_proxies:
+#   - 100.90.26.89 (change this IP to your tailscale IP)
+
 
 x-common: &common-options
   restart: always
