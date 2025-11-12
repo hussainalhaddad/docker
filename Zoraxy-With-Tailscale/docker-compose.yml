@@ -12,7 +12,7 @@
 # You also need to verify it to take effect
 # docker run -i -t --rm ghcr.io/steveiliop56/tinyauth:latest user verify --interactive
 
-# Stream proxy ports must be add the ports section under tailscale service for them to work    
+# Stream proxy ports must be added to the ports section under tailscale service for them to work    
 # You may remove port 8000 once you create a HTTP proxy (e.g. console.example.com) pointing to tailscale:8000
 
 # If you use Home Assistant, you'll need to add the tailscale container's IP address as a trusted proxy in Home Assistant configuration.yaml
