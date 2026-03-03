@@ -69,3 +69,8 @@ services:
     volumes:
       - ./tinyauth:/data
       - /etc/localtime:/etc/localtime:ro
+    environment:
+      - TINYAUTH_ANALYTICS_ENABLED=false
+      - TINYAUTH_OAUTH_AUTOREDIRECT=true
+      - TINYAUTH_AUTH_SECURECOOKIE=true
+      - TINYAUTH_AUTH_SESSIONEXPIRY=2629800
