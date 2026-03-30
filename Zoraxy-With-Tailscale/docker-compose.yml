@@ -25,6 +25,8 @@
 
 x-common: &common-options
   restart: always
+  logging:
+    driver: "none"
   env_file: .env
   
 services:
